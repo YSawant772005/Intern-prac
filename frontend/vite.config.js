@@ -7,7 +7,7 @@ export default defineConfig({
     allowedHosts: ['mulberry-repair-exclusion.ngrok-free.dev'],
     proxy: {
       '/api': {
-        target: 'http://backend:8000',
+        target: 'http://localhost:8080',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },
