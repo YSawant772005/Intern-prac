@@ -20,8 +20,15 @@ async function request(path, options = {}) {
   return payload
 }
 
-export function listContacts() {
-  return request('/contacts')
+export function listContacts({ page = 0, size = 20, search = '', sort = '' } = {}) {
+  const params = new URLSearchParams({ page: String(page), size: String(size) })
+  if (search.trim()) {
+    params.set('search', search.trim())
+  }
+  if (sort) {
+    params.set('sort', sort)
+  }
+  return request(`/contacts?${params.toString()}`)
 }
 
 export function getContact(id) {

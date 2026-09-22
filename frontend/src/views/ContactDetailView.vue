@@ -24,7 +24,9 @@
         </div>
         <div class="toolbar">
           <RouterLink class="button-secondary" :to="{ name: 'contact-edit', params: { id: contact.id } }">Edit</RouterLink>
-          <button class="button-danger" type="button" @click="handleDelete">Delete</button>
+          <button class="button-danger" type="button" :disabled="deleting" @click="handleDelete">
+            {{ deleting ? 'Deleting...' : 'Delete' }}
+          </button>
         </div>
       </div>
 
@@ -78,6 +80,7 @@ const notify = useNotification()
 const contact = ref(null)
 const loading = ref(true)
 const error = ref('')
+const deleting = ref(false)
 
 const formattedCreatedAt = computed(() => {
   if (!contact.value?.created_at) {
@@ -106,18 +109,24 @@ async function handleDelete() {
   if (!contact.value) {
     return
   }
+  if (deleting.value) {
+    return
+  }
 
   const confirmed = window.confirm(`Delete ${contact.value.name}? This action cannot be undone.`)
   if (!confirmed) {
     return
   }
 
+  deleting.value = true
   try {
     await deleteContact(contact.value.id)
     notify({ type: 'success', text: 'Contact deleted successfully.' })
     router.push({ name: 'contact-list' })
   } catch (err) {
     notify({ type: 'error', text: err instanceof Error ? err.message : 'Unable to delete contact.' })
+  } finally {
+    deleting.value = false
   }
 }
 

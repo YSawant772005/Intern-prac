@@ -52,6 +52,7 @@ a {
 
 button,
 input,
+select,
 textarea {
   font: inherit;
 }
@@ -174,6 +175,48 @@ button {
   flex-wrap: wrap;
 }
 
+.contact-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.contact-search input {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-search .sort-select {
+  flex: 0 0 auto;
+  max-width: 220px;
+}
+
+.contact-summary {
+  margin: -12px 0 24px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .button,
 .button-secondary,
 .button-danger,
@@ -197,6 +240,7 @@ button {
 .button-ghost:focus-visible,
 .pill-link:focus-visible,
 input:focus-visible,
+select:focus-visible,
 textarea:focus-visible {
   outline: 3px solid rgba(8, 127, 140, 0.25);
   outline-offset: 2px;
@@ -536,5 +580,18 @@ textarea:focus-visible {
   .toast-stack {
     right: 14px;
     left: 14px;
+  }
+
+  .contact-search {
+    flex-wrap: wrap;
+  }
+
+  .contact-search input {
+    flex-basis: 100%;
+  }
+
+  .pagination {
+    gap: 10px;
+    justify-content: space-between;
   }
 }

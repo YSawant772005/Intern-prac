@@ -1,14 +1,16 @@
-__pycache__/
-*.pyc
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.venv/
-venv/
-env/
-.env
+# Java / Maven build output
+target/
+*.class
+*.jar
+
+# Node.js dependencies and build output
 node_modules/
 dist/
 coverage/
+
+# Local environment
+.env
+
+# OS / editor / logs
 .DS_Store
 *.log

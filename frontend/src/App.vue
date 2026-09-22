@@ -6,7 +6,7 @@
           <div class="brand-mark">PB</div>
           <div class="brand-copy">
             <h1>Phonebook Application</h1>
-            <p>FastAPI, Vue 3, SQLAlchemy, and PostgreSQL in one simple CRUD demo.</p>
+            <p>Spring Boot, Vue 3, and PostgreSQL in one simple CRUD demo.</p>
           </div>
         </div>
 
