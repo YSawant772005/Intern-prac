@@ -1,25 +1,15 @@
 <template>
-  <article class="contact-card">
-    <div class="contact-card__header">
-      <div>
-        <p class="page-subtitle" style="margin: 0 0 6px">Contact</p>
-        <h3 class="contact-name">{{ contact.name }}</h3>
-      </div>
-      <span class="pill-link" style="pointer-events: none">{{ contact.phone_number }}</span>
+  <article class="contact-list-item">
+    <div class="contact-list-item__main">
+      <RouterLink class="contact-item-title" :to="{ name: 'contact-detail', params: { id: contact.id } }">
+        {{ contact.name }}
+      </RouterLink>
+      <p class="contact-item-phone">{{ contact.phone_number }}</p>
+      <p class="contact-item-email">{{ contact.email || 'No email provided' }}</p>
+      <p class="contact-item-address">{{ contact.address || 'No address provided' }}</p>
     </div>
 
-    <div class="contact-meta">
-      <div class="meta-row">
-        <span class="meta-label">Email</span>
-        <span class="meta-value">{{ contact.email || 'Not provided' }}</span>
-      </div>
-      <div class="meta-row">
-        <span class="meta-label">Address</span>
-        <span class="meta-value">{{ contact.address || 'Not provided' }}</span>
-      </div>
-    </div>
-
-    <div class="contact-actions">
+    <div class="contact-list-item__actions">
       <RouterLink class="button-secondary" :to="{ name: 'contact-detail', params: { id: contact.id } }">View</RouterLink>
       <RouterLink class="button-secondary" :to="{ name: 'contact-edit', params: { id: contact.id } }">Edit</RouterLink>
       <button

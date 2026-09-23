@@ -44,7 +44,7 @@
     </div>
 
     <template v-else>
-      <div class="contact-grid">
+      <div class="contact-list">
         <ContactCard
           v-for="contact in contacts"
           :key="contact.id"
@@ -55,10 +55,24 @@
       </div>
 
       <nav v-if="totalPages > 1" class="pagination" aria-label="Contact pages">
-        <button class="button-secondary" type="button" :disabled="loading || page === 0" @click="changePage(page - 1)">Previous</button>
-        <span>Page {{ page + 1 }} of {{ totalPages }}</span>
-        <button class="button-secondary" type="button" :disabled="loading || page >= totalPages - 1" @click="changePage(page + 1)">Next</button>
+        <button class="page-link" type="button" :disabled="loading || page === 0" @click="changePage(page - 1)">&#8249; Prev</button>
+        <template v-for="item in visiblePages" :key="item.k">
+          <button
+            v-if="item.type === 'page'"
+            class="page-number"
+            :class="{ current: item.n === page }"
+            type="button"
+            :disabled="loading"
+            :aria-current="item.n === page ? 'page' : undefined"
+            @click="changePage(item.n)"
+          >
+            {{ item.n + 1 }}
+          </button>
+          <span v-else class="pagination-ellipsis">…</span>
+        </template>
+        <button class="page-link" type="button" :disabled="loading || page >= totalPages - 1" @click="changePage(page + 1)">Next &#8250;</button>
       </nav>
+      <p class="results-range">Showing {{ resultStart }} – {{ resultEnd }} of {{ totalElements.toLocaleString('en-IN') }}</p>
     </template>
   </section>
 </template>
@@ -82,6 +96,32 @@ const loading = ref(true)
 const error = ref('')
 const deletingId = ref(null)
 const notify = useNotification()
+
+const resultStart = computed(() => {
+  if (totalElements.value === 0) {
+    return 0
+  }
+  return page.value * PAGE_SIZE + 1
+})
+
+const resultEnd = computed(() => Math.min((page.value + 1) * PAGE_SIZE, totalElements.value))
+
+const visiblePages = computed(() => {
+  const total = totalPages.value
+  const current = page.value
+  const candidates = [0, total - 1, current - 1, current, current + 1].filter(p => p >= 0 && p < total)
+  const sorted = [...new Set(candidates)].sort((a, b) => a - b)
+  const items = []
+  let prev = -1
+  for (const p of sorted) {
+    if (prev !== -1 && p - prev > 1) {
+      items.push({ type: 'gap', k: `gap-${prev}-${p}` })
+    }
+    items.push({ type: 'page', n: p, k: `page-${p}` })
+    prev = p
+  }
+  return items
+})
 
 const summaryText = computed(() => {
   const count = totalElements.value.toLocaleString('en-IN')
