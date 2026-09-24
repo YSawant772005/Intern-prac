@@ -266,8 +266,7 @@ button {
 .button,
 .button-secondary,
 .button-danger,
-.button-ghost,
-.pill-link {
+.button-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -284,7 +283,6 @@ button {
 .button-secondary:focus-visible,
 .button-danger:focus-visible,
 .button-ghost:focus-visible,
-.pill-link:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
@@ -304,15 +302,13 @@ textarea:focus-visible {
   box-shadow: 0 6px 0 #055761;
 }
 
-.button-secondary,
-.pill-link {
+.button-secondary {
   color: var(--text);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
 }
 
 .button-secondary:hover,
-.pill-link:hover,
 .button-ghost:hover {
   border-color: var(--border-strong);
   background: var(--bg-soft);
@@ -408,7 +404,6 @@ textarea:focus-visible {
   justify-content: flex-end;
 }
 
-.contact-actions,
 .detail-actions,
 .form-actions {
   display: flex;
